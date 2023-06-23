@@ -2,7 +2,7 @@ import Feed from "@components/Feed";
 
 const Home = () => (
   <section className='w-full flex-center flex-col'>
-    <h1 className='head_text text-center'>
+    <h1 className='head_text text-center max-md:text-[2rem]'>
       Discover & Share
 
     {/* this br is added to break the header in two lines in the big screens, 
@@ -10,7 +10,7 @@ const Home = () => (
       {/* <br className='max-md:hidden' /> */}
 
     {/* I'll just make the font-size smaller in the small devises */}
-      <br className='max-md:hidden' />
+      <br/>
       {/* 1- 'max-md' apply hidden to smaller than md, unlike 'md' which means apply hidden to bigger than md 
             - with max, the big is ok, apply to the small
             - without max, the small is ok, apply to big
