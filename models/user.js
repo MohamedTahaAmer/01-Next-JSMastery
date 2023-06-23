@@ -17,8 +17,9 @@ const UserSchema = new Schema({
   }
 });
 
-// -in express the servser is allways running, so this "model("User", UserSchema)" will be called with server start and won't be called again
-// - but in next ssr, this code will be exequted with each request so, we don't wanna create the user model if it was created before in the first call ever, so we will look for the user model in the models object, if we found it we will return it without creating it again
 const User = models.User || model("User", UserSchema);
 
 export default User;
+
+// -in express the servser is allways running, so this "model("User", UserSchema)" will be called with server start and won't be called again
+// - but in next ssr, this code will be exequted with each request so, we don't wanna create the user model if it was created before in the first call ever, so we will look for the user model in the models object, if we found it we will return it without creating it again

@@ -44,14 +44,15 @@ const Nav = () => {
               Create Post
             </Link>
 
-            <button
-              type="button"
-              onClick={signOut}
-              className="rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center"
-            >
-              Sign Out
-            </button>
-
+            <Link href="/">
+              <button
+                type="button"
+                onClick={signOut}
+                className="rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center"
+              >
+                Sign Out
+              </button>
+            </Link>
             <Link href="/profile">
               <Image
                 src={session?.user.image}
@@ -118,16 +119,18 @@ const Nav = () => {
                   >
                     Create Prompt
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setToggleDropdown(false);
-                      signOut();
-                    }}
-                    className="mt-5 w-full rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
-                  >
-                    Sign Out
-                  </button>
+                  <Link href="/">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setToggleDropdown(false);
+                        signOut();
+                      }}
+                      className="mt-5 w-full rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
+                    >
+                      Sign Out
+                    </button>
+                  </Link>
                 </div>
               )}
             </div>
