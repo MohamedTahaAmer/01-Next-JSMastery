@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import Link from "next/link"; // - takes 'href' for navigation
+import Image from "next/image"; // - https://github.com/MohamedTahaAmer/CodeMDs/blob/main/GPT/ImageNext.md
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
@@ -19,37 +19,46 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className='flex-between w-full mb-16 pt-3'>
-      <Link href='/' className='flex gap-2 flex-center'>
+    <nav className="flex justify-between items-center w-full mb-16 pt-3">
+      <Link href="/" className="flex gap-2 flex justify-start items-start">
         <Image
-          src='/assets/images/logo.svg'
-          alt='logo'
+          src="/assets/images/logo.svg"
+          alt="logo"
           width={30}
           height={30}
-          className='object-contain'
+          className="object-contain" // - even Image from next/image can have custom classnames
         />
-        <p className='logo_text'>Promptopia</p>
+        <p className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide">
+          Promptopia
+        </p>
       </Link>
 
       {/* Desktop Navigation */}
-      <div className='sm:flex hidden'>
+      <div className="sm:flex hidden">
         {session?.user ? (
-          <div className='flex gap-3 md:gap-5'>
-            <Link href='/create-prompt' className='black_btn'>
+          <div className="flex gap-3 md:gap-5">
+            <Link
+              href="/create-prompt"
+              className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
+            >
               Create Post
             </Link>
 
-            <button type='button' onClick={signOut} className='outline_btn'>
+            <button
+              type="button"
+              onClick={signOut}
+              className="rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center"
+            >
               Sign Out
             </button>
 
-            <Link href='/profile'>
+            <Link href="/profile">
               <Image
                 src={session?.user.image}
                 width={37}
                 height={37}
-                className='rounded-full'
-                alt='profile'
+                className="rounded-full"
+                alt="profile"
               />
             </Link>
           </div>
@@ -58,12 +67,12 @@ const Nav = () => {
             {providers &&
               Object.values(providers).map((provider) => (
                 <button
-                  type='button'
+                  type="button"
                   key={provider.name}
                   onClick={() => {
                     signIn(provider.id);
                   }}
-                  className='black_btn'
+                  className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
                 >
                   Sign in
                 </button>
@@ -73,41 +82,41 @@ const Nav = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div className='sm:hidden flex relative'>
+      <div className="sm:hidden flex relative">
         {session?.user ? (
-          <div className='flex'>
+          <div className="flex">
             <Image
               src={session?.user.image}
               width={37}
               height={37}
-              className='rounded-full'
-              alt='profile'
+              className="rounded-full"
+              alt="profile"
               onClick={() => setToggleDropdown(!toggleDropdown)}
             />
 
             {toggleDropdown && (
-              <div className='dropdown'>
+              <div className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide">
                 <Link
-                  href='/profile'
-                  className='dropdown_link'
+                  href="/profile"
+                  className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide_link"
                   onClick={() => setToggleDropdown(false)}
                 >
                   My Profile
                 </Link>
                 <Link
-                  href='/create-prompt'
-                  className='dropdown_link'
+                  href="/create-prompt"
+                  className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide_link"
                   onClick={() => setToggleDropdown(false)}
                 >
                   Create Prompt
                 </Link>
                 <button
-                  type='button'
+                  type="button"
                   onClick={() => {
                     setToggleDropdown(false);
                     signOut();
                   }}
-                  className='mt-5 w-full black_btn'
+                  className="mt-5 w-full rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
                 >
                   Sign Out
                 </button>
@@ -119,12 +128,12 @@ const Nav = () => {
             {providers &&
               Object.values(providers).map((provider) => (
                 <button
-                  type='button'
+                  type="button"
                   key={provider.name}
                   onClick={() => {
                     signIn(provider.id);
                   }}
-                  className='black_btn'
+                  className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
                 >
                   Sign in
                 </button>
