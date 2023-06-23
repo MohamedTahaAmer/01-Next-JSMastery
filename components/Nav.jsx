@@ -13,14 +13,14 @@ const Nav = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await getProviders();
+      const res = await getProviders(); // - this will return all providers you are using like google, facebook, github, twitter ..etc
       setProviders(res);
     })();
   }, []);
 
   return (
     <nav className="flex justify-between items-center w-full mb-16 pt-3">
-      <Link href="/" className="flex gap-2 flex justify-start items-start">
+      <Link href="/" className="flex gap-2 justify-start items-start">
         <Image
           src="/assets/images/logo.svg"
           alt="logo"
@@ -74,7 +74,7 @@ const Nav = () => {
                   }}
                   className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
                 >
-                  Sign in
+                  G-Sign in
                 </button>
               ))}
           </>
@@ -91,7 +91,7 @@ const Nav = () => {
               height={37}
               className="rounded-full"
               alt="profile"
-              onClick={() => setToggleDropdown(!toggleDropdown)}
+              onClick={() => setToggleDropdown((s) => !s)}
             />
 
             {toggleDropdown && (
