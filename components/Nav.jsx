@@ -96,20 +96,17 @@ const Nav = () => {
 
             {toggleDropdown &&
              (
-              <div className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide">
+              <div className="absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end">
                 <Link
                   href="/profile"
-                  className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide_link"
-                  // onClick={() => setToggleDropdown(false)}
-                  onClick={() => {
-                    console.log('Expression')
-                    setToggleDropdown(false)}}
+                  className="text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
+                  onClick={() => setToggleDropdown(false)}
                 >
                   My Profile
                 </Link>
                 <Link
                   href="/create-prompt"
-                  className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide_link"
+                  className="text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
                   onClick={() => setToggleDropdown(false)}
                 >
                   Create Prompt
