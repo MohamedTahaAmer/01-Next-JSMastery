@@ -1,7 +1,7 @@
 import Feed from "@components/Feed";
 
 const Home = () => (
-  <section className="w-full flex justify-start items-start flex-col">
+  <section className="w-full flex justify-center items-center flex-col">
     <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl text-center max-md:text-[2rem]">
       Discover & Share
       {/* this br is added to break the header in two lines in the big screens, 

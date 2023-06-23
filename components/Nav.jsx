@@ -94,12 +94,16 @@ const Nav = () => {
               onClick={() => setToggleDropdown((s) => !s)}
             />
 
-            {toggleDropdown && (
+            {toggleDropdown &&
+             (
               <div className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide">
                 <Link
                   href="/profile"
                   className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide_link"
-                  onClick={() => setToggleDropdown(false)}
+                  // onClick={() => setToggleDropdown(false)}
+                  onClick={() => {
+                    console.log('Expression')
+                    setToggleDropdown(false)}}
                 >
                   My Profile
                 </Link>
