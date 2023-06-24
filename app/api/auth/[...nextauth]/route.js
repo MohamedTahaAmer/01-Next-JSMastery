@@ -1,18 +1,15 @@
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
-// import { useRouter } from 'next/router';
-// import { signOut } from 'next-auth/react';
-
-import User from '@models/user';
-import { connectToDB } from '@utils/database';
+import User from "@models/user";
+import { connectToDB } from "@utils/database";
 
 const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    })
+    }),
   ],
   callbacks: {
     async session({ session }) {
@@ -24,7 +21,6 @@ const handler = NextAuth({
     },
     async signIn({ account, profile, user, credentials }) {
       try {
-
         await connectToDB();
 
         // check if user already exists
@@ -34,30 +30,18 @@ const handler = NextAuth({
         if (!userExists) {
           await User.create({
             email: profile.email,
-            username: profile.name.replace(/\s/g, "").toLowerCase(),
+            username: profile.name.trim(),
             image: profile.picture,
           });
         }
 
-        return true
+        return true;
       } catch (error) {
         console.log("Error checking if user exists: ", error.message);
-        return false
+        return false;
       }
     },
-    async signOut({ redirect }) {
-      console.log('Expression-2')
+  },
+});
 
-      // const router = useRouter();
-      
-      // await signOut(); // Sign out the user using NextAuth.js signOut()
-      
-      // // Redirect to the home route
-      // await router.push('/');
-      
-      // return redirect('/');
-    },
-  }
-})
-
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

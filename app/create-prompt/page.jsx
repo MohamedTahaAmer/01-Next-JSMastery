@@ -5,13 +5,22 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import Form from "@components/Form";
+import SignIn from "@components/SignIn";
 
 const CreatePrompt = () => {
+  const [submitting, setIsSubmitting] = useState(false);
+  const [post, setPost] = useState({ prompt: "", tag: "" });
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [submitting, setIsSubmitting] = useState(false);
-  const [post, setPost] = useState({ prompt: "", tag: "" });
+  if (!session?.user)
+    return (
+      <>
+        You must sign in to create a Prompt
+          <SignIn />
+      </>
+    );
+
 
   const createPrompt = async (e) => {
     e.preventDefault();
@@ -39,7 +48,7 @@ const CreatePrompt = () => {
 
   return (
     <Form
-      type='Create'
+      type="Create"
       post={post}
       setPost={setPost}
       submitting={submitting}

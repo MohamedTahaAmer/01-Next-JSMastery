@@ -5,6 +5,7 @@ export const GET = async (request, { params }) => {
     try {
         await connectToDB()
 
+            // - a mongodb query to find all the prompts with the id of a certain creator
         const prompts = await Prompt.find({ creator: params.id }).populate("creator")
 
         return new Response(JSON.stringify(prompts), { status: 200 })
