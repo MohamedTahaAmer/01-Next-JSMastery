@@ -1,4 +1,4 @@
-import PromptCard from "./PromptCard";
+import SnippetCard from "./SnippetCard";
 
 const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
   return (
@@ -8,11 +8,13 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
           {name} Profile
         </span>
       </h1>
-      <p className="mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl text-left">{desc}</p>
+      <p className="mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl text-left">
+        {desc}
+      </p>
 
       <div className="mt-10 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
         {data.map((post) => (
-          <PromptCard
+          <SnippetCard
             key={post._id}
             post={post}
             handleEdit={() => handleEdit && handleEdit(post)}

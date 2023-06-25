@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 
-import PromptCard from "./PromptCard";
+import SnippetCard from "./SnippetCard";
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const SnippetCardList = ({ data, handleTagClick }) => {
   return (
     <div className="mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
       {data.map((post) => (
-        <PromptCard
+        <SnippetCard
           key={post._id}
           post={post}
           handleTagClick={handleTagClick}
@@ -27,7 +27,7 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
+    const response = await fetch("/api/snippet");
     const data = await response.json();
 
     setAllPosts(data);
@@ -37,13 +37,13 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
-  const filterPrompts = (searchtext) => {
+  const filterSnippets = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
     return allPosts.filter(
       (item) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
-        regex.test(item.prompt)
+        regex.test(item.snippet)
     );
   };
 
@@ -54,7 +54,7 @@ const Feed = () => {
     // debounce method
     setSearchTimeout(
       setTimeout(() => {
-        const searchResult = filterPrompts(e.target.value);
+        const searchResult = filterSnippets(e.target.value);
         setSearchedResults(searchResult);
       }, 500)
     );
@@ -63,7 +63,7 @@ const Feed = () => {
   const handleTagClick = (tagName) => {
     setSearchText(tagName);
 
-    const searchResult = filterPrompts(tagName);
+    const searchResult = filterSnippets(tagName);
     setSearchedResults(searchResult);
   };
 
@@ -80,14 +80,14 @@ const Feed = () => {
         />
       </form>
 
-      {/* All Prompts */}
+      {/* All  Snippets */}
       {searchText ? (
-        <PromptCardList
+        <SnippetCardList
           data={searchedResults}
           handleTagClick={handleTagClick}
         />
       ) : (
-        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
+        <SnippetCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
     </section>
   );

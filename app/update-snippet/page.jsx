@@ -5,39 +5,38 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
 
-const UpdatePrompt = () => {
+const UpdateSnippet = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const promptId = searchParams.get("id");
-  if (!promptId) return <div>There is no Promot ID</div>;
+  const snippetId = searchParams.get("id");
+  if (!snippetId) return <div>There is no Promot ID</div>;
 
-  const [post, setPost] = useState({ prompt: "", tag: "", });
+  const [post, setPost] = useState({ snippet: "", tag: "" });
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const getPromptDetails = async () => {
-      const response = await fetch(`/api/prompt/${promptId}`);
+    const getSnippetDetails = async () => {
+      const response = await fetch(`/api/snippet/${snippetId}`);
       const data = await response.json();
 
       setPost({
-        prompt: data.prompt,
+        snippet: data.snippet,
         tag: data.tag,
       });
     };
 
-    if (promptId) getPromptDetails();
-  }, [promptId]);
+    if (snippetId) getSnippetDetails();
+  }, [snippetId]);
 
-  const updatePromptHandler = async (e) => {
+  const updateSnippetHandler = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-
     try {
-      const response = await fetch(`/api/prompt/${promptId}`, {
+      const response = await fetch(`/api/ snippet/${snippetId}`, {
         method: "PATCH",
         body: JSON.stringify({
-          prompt: post.prompt,
+          snippet: post.snippet,
           tag: post.tag,
         }),
       });
@@ -54,13 +53,13 @@ const UpdatePrompt = () => {
 
   return (
     <Form
-      type='Edit'
+      type="Edit"
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={updatePromptHandler}
+      handleSubmit={updateSnippetHandler}
     />
   );
 };
 
-export default UpdatePrompt;
+export default UpdateSnippet;

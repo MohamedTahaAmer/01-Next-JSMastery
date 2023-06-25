@@ -8,20 +8,19 @@ import SignIn from "./SignIn";
 
 const Nav = () => {
   const { data: session } = useSession();
-  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   return (
     <nav className="flex justify-between items-center w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 justify-start items-start">
         <Image
-          src="/assets/images/logo.svg"
+          src="/assets/images/snippet.svg"
           alt="logo"
           width={30}
           height={30}
           className="object-contain" // - even Image from next/image can have custom classnames
         />
         <p className="max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide">
-          Promptopia
+          Snippets
         </p>
       </Link>
 
@@ -30,17 +29,17 @@ const Nav = () => {
         {session?.user ? (
           <div className="flex gap-2 md:gap-5">
             <Link
-              href="/create-prompt"
+              href="/create-snippet"
               className="max-sm:px-2  rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
             >
-              Create Post
+              Add<span className="max-sm:hidden ml-1">Snippet</span>
             </Link>
 
             <Link
               href="/"
               type="button"
               onClick={signOut}
-              className="max-sm:px-2 rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center"
+              className="max-sm:px-2 rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center font-bold"
             >
               Sign Out
             </Link>

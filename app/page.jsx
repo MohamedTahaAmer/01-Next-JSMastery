@@ -15,12 +15,11 @@ const Home = () => (
       */}
       <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent text-center">
         {" "}
-        AI-Powered Prompts
+        Snippets
       </span>
     </h1>
     <p className="mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl text-center">
-      Promptopia is an open-source AI prompting tool for modern world to
-      discover, create and share creative prompts
+      Snippets is a place to Store and Share your code snippets with others
     </p>
 
     <Feed />

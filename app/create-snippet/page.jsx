@@ -7,30 +7,29 @@ import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 import SignIn from "@components/SignIn";
 
-const CreatePrompt = () => {
+const CreateSnippet = () => {
   const [submitting, setIsSubmitting] = useState(false);
-  const [post, setPost] = useState({ prompt: "", tag: "" });
+  const [post, setPost] = useState({ snippet: "", tag: "" });
   const router = useRouter();
   const { data: session } = useSession();
 
   if (!session?.user)
     return (
       <>
-        You must sign in to create a Prompt
-          <SignIn />
+        You must sign in to create a Snippet
+        <SignIn />
       </>
     );
 
-
-  const createPrompt = async (e) => {
+  const createSnippet = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/prompt/new", {
+      const response = await fetch("/api/snippet/new", {
         method: "POST",
         body: JSON.stringify({
-          prompt: post.prompt,
+          snippet: post.snippet,
           userId: session?.user.id,
           tag: post.tag,
         }),
@@ -52,9 +51,9 @@ const CreatePrompt = () => {
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={createPrompt}
+      handleSubmit={createSnippet}
     />
   );
 };
 
-export default CreatePrompt;
+export default CreateSnippet;
