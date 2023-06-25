@@ -33,7 +33,7 @@ const UpdateSnippet = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`/api/ snippet/${snippetId}`, {
+      const response = await fetch(`/api/snippet/${snippetId}`, {
         method: "PATCH",
         body: JSON.stringify({
           snippet: post.snippet,
