@@ -15,6 +15,7 @@ export const GET = async (request, { params }) => {
     }
 }
 
+// - in the server side routs you get the params passed to the controlleres
 export const PATCH = async (request, { params }) => {
     const {  snippet, tag } = await request.json();
 

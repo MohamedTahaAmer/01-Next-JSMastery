@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 import Profile from "@components/Profile";
 
+// - in the client side routes, you get the params passed to the component
 const UserProfile = ({ params }) => {
   const searchParams = useSearchParams();
   const userName = searchParams.get("name");
