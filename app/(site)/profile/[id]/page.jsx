@@ -8,6 +8,8 @@ import Profile from "@components/Profile";
 // - in the client side routes, you get the params passed to the component
 const UserProfile = ({ params }) => {
   const searchParams = useSearchParams();
+
+  // - this is how to get the user's query params
   const userName = searchParams.get("name");
 
   const [userPosts, setUserPosts] = useState([]);

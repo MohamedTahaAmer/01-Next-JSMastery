@@ -6,7 +6,7 @@ export const GET = async (request, { params }) => {
     await connectToDB();
 
     // - a mongodb query to find all the  snippets with the id of a certain creator
-    const snippets = await Snippet.find({ creator: params.id }).populate(
+    const snippets = await Snippet.find({ creator: params.id })?.populate(
       "creator"
     );
 
