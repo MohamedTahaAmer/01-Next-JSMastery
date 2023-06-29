@@ -2,7 +2,6 @@ import Snippet from "@models/snippet";
 import { connectToDB } from "@utils/database";
 
 export const GET = async (request) => {
-  console.log('hi snippet')
   try {
     await connectToDB();
 

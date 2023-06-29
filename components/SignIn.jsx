@@ -25,9 +25,10 @@ function SignIn() {
             onClick={() => {
               signIn(provider.id);
             }}
-            className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
+            
+            className="rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center mr-2"
           >
-            G-Sign in
+            {provider.name[0]}-Sign in 
           </button>
         ))}
     </>

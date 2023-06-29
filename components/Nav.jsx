@@ -1,13 +1,17 @@
 "use client";
 
-import Link from "next/link"; // - takes 'href' for navigation
-import Image from "next/image"; // - https://github.com/MohamedTahaAmer/CodeMDs/blob/main/GPT/ImageNext.md
-import { useState } from "react";
+import Link from "next/link"; 
+// - takes 'href' for navigation
+
+import Image from "next/image"; 
+// - https://github.com/MohamedTahaAmer/CodeMDs/blob/main/GPT/ImageNext.md
+
 import { signOut, useSession } from "next-auth/react";
 import SignIn from "./SignIn";
 
 const Nav = () => {
   const { data: session } = useSession();
+  console.log(session)
 
   return (
     <nav className="flex justify-between items-center w-full mb-16 pt-3">
@@ -51,6 +55,7 @@ const Nav = () => {
                 className="rounded-full"
                 alt="profile"
               />
+              {console.log(session)}
             </Link>
           </div>
         ) : (

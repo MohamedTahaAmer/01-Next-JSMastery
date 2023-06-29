@@ -7,6 +7,7 @@ export const metadata = {
   title: "Snippets",
   description: "Discover & Share Snippets",
   icons: {
+    // - next.js serves all the static files in the public folder directley
     icon: "/assets/images/snippet.svg",
   },
 };
