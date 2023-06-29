@@ -1,42 +1,48 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/github";
+import GithubProvider from "next-auth/providers/github";
 
 import User from "@models/user";
 import { connectToDB } from "@utils/database";
 
+// - https://next-auth.js.org/
 const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    FacebookProvider({
+    GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
   callbacks: {
+    // - https://next-auth.js.org/v3/configuration/callbacks
     async session({ session }) {
+      // - hence next.js is a serverless, we need to connect to the db each time we need to access our atlas
+      await connectToDB();
+
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
 
       return session;
     },
-    async signIn({ account, profile, user, credentials }) {
+    async signIn({ user }) {
       try {
         await connectToDB();
 
         // check if user already exists
-        const userExists = await User.findOne({ email: profile.email });
+        const userExists = await User.findOne({ email: user.email });
+        console.log(userExists)
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
           await User.create({
-            email: profile.email,
-            username: profile.name.trim(),
-            image: profile.picture,
+            email: user.email,
+            username: user.name.trim(),
+            image: user.image,
           });
         }
 

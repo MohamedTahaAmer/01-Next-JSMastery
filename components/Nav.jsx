@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link"; 
+import Link from "next/link";
 // - takes 'href' for navigation
 
-import Image from "next/image"; 
+import Image from "next/image";
 // - https://github.com/MohamedTahaAmer/CodeMDs/blob/main/GPT/ImageNext.md
 
 import { signOut, useSession } from "next-auth/react";
@@ -11,7 +11,6 @@ import SignIn from "./SignIn";
 
 const Nav = () => {
   const { data: session } = useSession();
-  console.log(session)
 
   return (
     <nav className="flex justify-between items-center w-full mb-16 pt-3">
@@ -37,8 +36,18 @@ const Nav = () => {
               className="max-sm:px-2  rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center"
             >
               Add<span className="max-sm:hidden ml-1">Snippet</span>
+              {/* {console.log(session)}
+              {
+                expires: "2023-07-29T05:53:48.674Z",
+                user: {
+                  email: "mohamedtahaaamer@gmail.com",
+                  // this id is added manually in the route.js session callback
+                  id: "649783213d4135a56f1f0e96",
+                  image: "https://avatars.githubusercontent.com/u/58145820?v=4",
+                  name: "Mohamed Taha",
+                },
+              } */}
             </Link>
-
             <Link
               href="/"
               type="button"
@@ -55,7 +64,6 @@ const Nav = () => {
                 className="rounded-full"
                 alt="profile"
               />
-              {console.log(session)}
             </Link>
           </div>
         ) : (
