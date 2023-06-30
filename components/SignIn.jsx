@@ -11,9 +11,9 @@ function SignIn() {
 
   useEffect(() => {
     (async () => {
-      const res = await getProviders(); 
+      const nextProviders = await getProviders(); 
       /*
-      // console.log(res)
+      // console.log(nextProviders)
         {
           github: {
             callbackUrl: "http://localhost:3000/api/auth/callback/github",
@@ -32,7 +32,7 @@ function SignIn() {
         };
 
       */
-      setProviders(res);
+      setProviders(nextProviders);
     })();
   }, []);
 

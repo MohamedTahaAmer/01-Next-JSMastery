@@ -23,7 +23,7 @@ const handler = NextAuth({
       // - hence next.js is a serverless, we need to connect to the db each time we need to access our atlas
       await connectToDB();
 
-      // store the user id from MongoDB to session
+      // adding the user's mongodb id to his session
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
 
@@ -35,7 +35,6 @@ const handler = NextAuth({
 
         // check if user already exists
         const userExists = await User.findOne({ email: user.email });
-        console.log(userExists)
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {

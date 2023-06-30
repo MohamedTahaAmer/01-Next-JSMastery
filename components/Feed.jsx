@@ -6,7 +6,8 @@ import SnippetCard from "./SnippetCard";
 
 const SnippetCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
+    // <div className="mt-16 py-8 flex flex-wrap gap-6 justify-center items-center">
+    <div className="mt-16 py-8 grid gap-4 xl:grid-cols-3 md:grid-cols-2 ">
       {data.map((post) => (
         <SnippetCard
           key={post._id}
@@ -68,8 +69,8 @@ const Feed = () => {
   };
 
   return (
-    <section className="mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2">
-      <form className="relative w-full flex justify-start items-start">
+    <section className="mt-16 mx-auto w-full flex justify-center items-center flex-col gap-2">
+      <form className="relative w-full md:w-2/3 flex justify-start items-start">
         <input
           type="text"
           placeholder="Search for a tag or a username"

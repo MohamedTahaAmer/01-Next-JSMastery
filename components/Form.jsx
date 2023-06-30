@@ -8,7 +8,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           {type} Post
         </span>
       </h1>
-      <p className="mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl text-left max-w-md">
+      <p className="mt-5 text-lg text-gray-600 sm:text-xl text-left max-w-md">
         {type} and share amazing snippets with the world, and let your
         imagination run wild with any AI-powered platform
       </p>
