@@ -1,6 +1,6 @@
-import SnippetCard from "./SnippetCard";
+import SnippetCardList from "./SnippetCardList";
 
-const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
+const Profile = ({ name, desc, snippets, handleEdit, handleDelete, handleTagClick }) => {
   return (
     <section className="w-full">
       <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl text-left">
@@ -12,16 +12,12 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
         {desc}
       </p>
 
-      <div className="mt-10 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
-        {data.map((post) => (
-          <SnippetCard
-            key={post._id}
-            post={post}
-            handleEdit={() => handleEdit && handleEdit(post)}
-            handleDelete={() => handleDelete && handleDelete(post)}
-          />
-        ))}
-      </div>
+      <SnippetCardList
+        snippets={snippets}
+        handleEdit={(snippet) => handleEdit(snippet)}
+        handleDelete={(snippet) => handleDelete(snippet)}
+        handleTagClick={handleTagClick}
+      />
     </section>
   );
 };

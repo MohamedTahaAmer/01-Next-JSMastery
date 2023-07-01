@@ -1,17 +1,29 @@
 import { Schema, model, models } from "mongoose";
 
 const SnippetSchema = new Schema({
+  // - this creator propery will link the snippets with the users by assigning the value of a user id to the creator of a snippet
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  snippet: {
+  body: {
     type: String,
-    required: [true, " Snippet is required."],
+    required: [true, " Snippet body is required."],
   },
-  tag: {
+  tags: {
+    type: [String],
+    required: [true, "Tags are required."],
+  },
+  title: {
     type: String,
-    required: [true, "Tag is required."],
+    required: [true, "Snippet Title is required."],
+  },
+  dateModified: {
+    type: Date
+  },
+  language: {
+    type: String,
+    required: [true, "Snippet Language is required."],
   },
 });
 

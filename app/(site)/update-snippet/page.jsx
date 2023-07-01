@@ -16,7 +16,7 @@ const UpdateSnippet = () => {
 
   useEffect(() => {
     const getSnippetDetails = async () => {
-      const response = await fetch(`/api/snippet/${snippetId}`);
+      const response = await fetch(`/api/snippets/${snippetId}`);
       const data = await response.json();
 
       setPost({
@@ -33,7 +33,7 @@ const UpdateSnippet = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`/api/snippet/${snippetId}`, {
+      const response = await fetch(`/api/snippets/${snippetId}`, {
         method: "PATCH",
         body: JSON.stringify({
           snippet: post.snippet,

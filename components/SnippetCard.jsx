@@ -1,26 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import Image from "next/image";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import Code from "@components/Code";
 
-const SnippetCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
+const SnippetCard = ({ snippet, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
 
-  const [copied, setCopied] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleProfileClick = () => {
-    if (post.creator._id === session?.user.id) return router.push("/profile");
+    if (snippet.creator._id === session?.user.id)
+      return router.push("/profile");
 
-    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+    router.push(
+      `/profile/${snippet.creator._id}?name=${snippet.creator.username}`
+    );
   };
 
-  const handleCopy = () => {
-    setCopied(post.snippet);
-    navigator.clipboard.writeText(post.snippet);
+  const handleCopy = async () => {
+    // // - and this is how to read text from the clipboard
+    // console.log(await navigator.clipboard.readText())
+
+    setCopied(snippet.body);
+    // - this is how to add some text to the clipboard
+    navigator.clipboard.writeText(snippet.body);
+
+    // - this is how to reset the state after a certain time has passed
     setTimeout(() => setCopied(false), 3000);
   };
 
@@ -32,8 +44,8 @@ const SnippetCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           onClick={handleProfileClick}
         >
           <Image
-            src={post.creator.image}
-            alt="user_image"
+            src={snippet.creator.image}
+            alt="user image"
             width={40}
             height={40}
             className="rounded-full object-contain"
@@ -41,10 +53,10 @@ const SnippetCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-gray-900">
-              {post.creator.username}
+              {snippet.creator.username}
             </h3>
             <p className="font-inter text-sm text-gray-500">
-              {post.creator.email}
+              {snippet.creator.email}
             </p>
           </div>
         </div>
@@ -54,27 +66,41 @@ const SnippetCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           onClick={handleCopy}
         >
           <Image
-            src={
-              copied === post.snippet
-                ? "/assets/icons/tick.svg"
-                : "/assets/icons/copy.svg"
-            }
-            alt={copied === post.snippet ? "tick_icon" : "copy_icon"}
+            src={copied ? "/assets/icons/tick.svg" : "/assets/icons/copy.svg"}
+            alt={copied ? "tick_icon" : "copy_icon"}
             width={12}
             height={12}
           />
         </div>
       </div>
 
-      <p className="my-4 h-36 overflow-hidden font-satoshi text-sm text-gray-700">{post.snippet}</p>
-      <p
-        className="font-inter text-sm bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent cursor-pointer"
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
-      >
-        #{post.tag}
-      </p>
+      <Link href="/">
+        <p className="my-4 h-36 overflow-hidden font-satoshi text-sm text-gray-700">
+          {snippet.title}
+        </p>
+      </Link>
+      {/* <p className="my-4 h-36 overflow-hidden font-satoshi text-sm text-gray-700">
+        <Code lang="js" str={snippet.body} />
+      </p> */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center justify-start gap-1 bg-[#f0e0d0] px-3 overflow-hidden  rounded-2xl max-w-[60%]">
+          {snippet.tags.map((tag) => (
+            <p
+              className="font-inter text-sm hover:text-primary-orange cursor-pointer"
+              onClick={() => handleTagClick(snippet.tag)}
+              key={uuidv4()}
+            >
+              #{tag}
+            </p>
+          ))}
+        </div>
+        {/* <div className=" bg-gray-300 px-3  rounded-2xl"> */}
+        <div className=" bg-[#f0e0d0] px-3  rounded-2xl">
+          <div className="bold uppercase">{snippet.language}</div>
+        </div>
+      </div>
 
-      {session?.user.id === post.creator._id && pathName === "/profile" && (
+      {session?.user.id === snippet.creator._id && pathName === "/profile" && (
         <div className="mt-5 flex justify-start items-start gap-4 border-t border-gray-100 pt-3">
           <p
             className="font-inter text-sm bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent cursor-pointer"

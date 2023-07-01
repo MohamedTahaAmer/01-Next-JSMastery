@@ -13,7 +13,7 @@ const Home = () => (
     <p className="mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl text-center">
       Snippets is a place to Store and Share your code snippets with others
     </p>
-
+{console.log('Expression')}
     <Feed />
   </section>
 );

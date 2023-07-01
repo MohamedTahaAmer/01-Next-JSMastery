@@ -1,26 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import SnippetCard from "./SnippetCard";
-
-const SnippetCardList = ({ data, handleTagClick }) => {
-  return (
-    // <div className="mt-16 py-8 flex flex-wrap gap-6 justify-center items-center">
-    <div className="mt-16 py-8 grid gap-4 xl:grid-cols-3 md:grid-cols-2 ">
-      {data.map((post) => (
-        <SnippetCard
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />
-      ))}
-    </div>
-  );
-};
+import SearchBar from "./SearchBar";
+import SnippetCardList from "@components/SnippetCardList";
 
 const Feed = () => {
-  const [allPosts, setAllPosts] = useState([]);
+  const [allSnippets, setAllSnippets] = useState([]);
 
   // Search states
   const [searchText, setSearchText] = useState("");
@@ -28,10 +13,14 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/snippet");
-    const data = await response.json();
+    try {
+      const response = await fetch("/api/snippets");
+      const snippets = await response.json();
 
-    setAllPosts(data);
+      setAllSnippets(snippets);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -40,12 +29,27 @@ const Feed = () => {
 
   const filterSnippets = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
-    return allPosts.filter(
+    const snip = allSnippets.filter(
       (item) =>
         regex.test(item.creator.username) ||
-        regex.test(item.tag) ||
-        regex.test(item.snippet)
+        item.tags.some((tag) => regex.test(tag)) ||
+        regex.test(item.title) ||
+        regex.test(item.language)
     );
+
+    return snip;
+  };
+
+  const handleTagClick = (tagName) => {
+    setSearchText(tagName);
+
+    const searchResult = filterSnippets(tagName);
+    setSearchedResults(searchResult);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // setSearchText(e.target.value)
   };
 
   const handleSearchChange = (e) => {
@@ -57,38 +61,30 @@ const Feed = () => {
       setTimeout(() => {
         const searchResult = filterSnippets(e.target.value);
         setSearchedResults(searchResult);
-      }, 500)
+      }, 1)
     );
   };
 
-  const handleTagClick = (tagName) => {
-    setSearchText(tagName);
-
-    const searchResult = filterSnippets(tagName);
-    setSearchedResults(searchResult);
-  };
-
   return (
-    <section className="mt-16 mx-auto w-full flex justify-center items-center flex-col gap-2">
-      <form className="relative w-full md:w-2/3 flex justify-start items-start">
-        <input
-          type="text"
-          placeholder="Search for a tag or a username"
-          value={searchText}
-          onChange={handleSearchChange}
-          required
-          className="block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0 peer"
-        />
+    <section className="mt-10 mx-auto w-full flex justify-center items-center flex-col gap-2">
+      <form
+        onSubmit={handleFormSubmit}
+        className="relative w-full md:w-2/3 flex justify-start items-start"
+      >
+        <SearchBar value={searchText} onChange={handleSearchChange} />
       </form>
 
       {/* All  Snippets */}
       {searchText ? (
         <SnippetCardList
-          data={searchedResults}
+          snippets={searchedResults}
           handleTagClick={handleTagClick}
         />
       ) : (
-        <SnippetCardList data={allPosts} handleTagClick={handleTagClick} />
+        <SnippetCardList
+          snippets={allSnippets}
+          handleTagClick={handleTagClick}
+        />
       )}
     </section>
   );
